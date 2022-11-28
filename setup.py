@@ -1,5 +1,5 @@
 """
-tabcompleter --- This fixes fancycompleter to work in all environments.
+tabcompleter --- Use the TAB key for autocompletion in the Python console.
 """
 
 from setuptools import setup, find_packages  # noqa
@@ -20,7 +20,7 @@ try:
             long_description_lines.append(line)
     long_description = "\n".join(long_description_lines)
 except IOError:
-    long_description = "tabcompleter -- Make fancycompleter work again!"
+    long_description = "tabcompleter --- Autocompletion in the Python console."
 
 if sys.argv[-1] == "publish":
     reply = None
@@ -58,8 +58,8 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="tabcompleter",
-    version="0.1.0",
-    description="tabcompleter -- Make fancycompleter work again!",
+    version="0.2.0",
+    description="tabcompleter --- Autocompletion in the Python console.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="tab completion console",
