@@ -1,5 +1,7 @@
 """
-tabcompleter --- Use the TAB key for autocompletion in the Python console.
+*** tabcompleter ***
+Use the TAB key for autocompletion in the Python console.
+(Python 2.7+ and Python 3.6+)
 """
 
 from setuptools import setup, find_packages  # noqa
@@ -58,7 +60,7 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="tabcompleter",
-    version="0.2.0",
+    version="0.2.1",
     description="tabcompleter --- Autocompletion in the Python console.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -113,7 +115,7 @@ setup(
         'pyreadline;platform_system=="Windows" and python_version<"3.6"',
         'pyreadline3;platform_system=="Windows" and python_version>="3.6"',
     ],
-    setup_requires=["setuptools_scm"],
+    setup_requires=[],
     include_package_data=True,
 )
 
