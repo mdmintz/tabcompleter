@@ -285,7 +285,7 @@ class Completer(rlcompleter.Completer, ConfigurableClass):
             for word in words:
                 if (
                     word[:n] == attr
-                    and not (noprefix and word[:n+1] == noprefix)
+                    and not (noprefix and word[:n + 1] == noprefix)
                 ):
                     try:
                         val = getattr(thisobject, word)
