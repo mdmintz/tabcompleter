@@ -60,7 +60,7 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="tabcompleter",
-    version="1.0.0",
+    version="1.1.0",
     description="tabcompleter --- Autocompletion in the Python console.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -111,7 +111,6 @@ setup(
     ],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",  # noqa: E501
     install_requires=[
-        "pyrepl>=0.9.0",
         'pyreadline;platform_system=="Windows" and python_version<"3.6"',
         'pyreadline3;platform_system=="Windows" and python_version>="3.6"',
     ],
