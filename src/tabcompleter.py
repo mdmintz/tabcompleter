@@ -93,10 +93,8 @@ class Color:
 class DefaultConfig:
 
     consider_getitems = True
-    prefer_pyrepl = True
     use_colors = "auto"
     readline = None  # Set by setup()
-    using_pyrepl = False  # Overwritten by find_pyrepl
     color_by_type = {
         types.BuiltinMethodType: Color.turquoise,
         types.MethodType: Color.turquoise,
@@ -120,18 +118,6 @@ class DefaultConfig:
         ((BaseException,), Color.red),
     ]
 
-    def find_pyrepl(self):
-        try:
-            import pyrepl.readline
-            import pyrepl.completing_reader
-        except ImportError:
-            return None
-        self.using_pyrepl = True
-        if hasattr(pyrepl.completing_reader, "stripcolor"):
-            return pyrepl.readline, True
-        else:
-            return pyrepl.readline, False
-
     def find_pyreadline(self):
         try:
             import readline
@@ -145,10 +131,6 @@ class DefaultConfig:
             return readline, False
 
     def find_best_readline(self):
-        if self.prefer_pyrepl:
-            result = self.find_pyrepl()
-            if result:
-                return result
         if sys.platform == "win32":
             result = self.find_pyreadline()
             if result:
@@ -347,7 +329,7 @@ def commonprefix(names, base=""):
 
 
 def has_leopard_libedit(config):
-    if config.using_pyrepl or sys.platform != "darwin":
+    if sys.platform != "darwin":
         return False
     return config.readline.__doc__ and "libedit" in config.readline.__doc__
 
@@ -362,14 +344,6 @@ def setup():
         readline.parse_and_bind("tab: complete")
     readline.set_completer(completer.complete)
     return completer
-
-
-def interact_pyrepl():
-    import sys
-    from pyrepl import readline
-    from pyrepl.simple_interact import run_multiline_interactive_console
-    sys.modules["readline"] = readline
-    run_multiline_interactive_console()
 
 
 def setup_history(completer, persist_history):
@@ -389,16 +363,9 @@ def setup_history(completer, persist_history):
 
 
 def interact(persist_history=None):
-    import sys
     completer = setup()
     if persist_history:
         setup_history(completer, persist_history)
-    if (
-        completer.config.using_pyrepl
-        and "__pypy__" not in sys.builtin_module_names
-    ):
-        interact_pyrepl()
-        sys.exit()
 
 
 class Installer(object):
