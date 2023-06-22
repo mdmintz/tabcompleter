@@ -62,7 +62,7 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="tabcompleter",
-    version="1.2.0",
+    version="1.2.1",
     description="tabcompleter --- Autocompletion in the Python console.",
     long_description=long_description,
     long_description_content_type="text/markdown",
