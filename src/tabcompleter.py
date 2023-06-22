@@ -1,34 +1,15 @@
-"""tabcompleter: Python console tab-completion. Replaces fancycompleter."""
-
-from __future__ import with_statement
-from __future__ import print_function
+"""
+tabcompleter: Python console tab-completion. Replaces fancycompleter.
+=====================================================================
+"""
 import rlcompleter
 import sys
 import types
 import os.path
 from itertools import count
 
-PY3K = sys.version_info[0] >= 3
-
-# Python3 compatibility
-# ---------------------
-try:
-    from itertools import izip
-except ImportError:
-    izip = zip
-try:
-    from types import ClassType
-except ImportError:
-    ClassType = type
-try:
-    unicode
-except NameError:
-    unicode = str
-# ----------------------
-
 
 class LazyVersion(object):
-
     def __init__(self, pkg):
         self.pkg = pkg
         self.__version = None
@@ -47,7 +28,6 @@ class LazyVersion(object):
         try:
             return get_distribution(self.pkg).version
         except DistributionNotFound:
-            # Package is not installed
             return "N/A"
 
     def __repr__(self):
@@ -91,10 +71,9 @@ class Color:
 
 
 class DefaultConfig:
-
     consider_getitems = True
     use_colors = "auto"
-    readline = None  # Set by setup()
+    readline = None
     color_by_type = {
         types.BuiltinMethodType: Color.turquoise,
         types.MethodType: Color.turquoise,
@@ -103,12 +82,10 @@ class DefaultConfig:
         type(str.replace): Color.turquoise,
         types.FunctionType: Color.blue,
         types.BuiltinFunctionType: Color.blue,
-        ClassType: Color.fuchsia,
         type: Color.fuchsia,
         types.ModuleType: Color.teal,
         type(None): Color.lightgray,
         str: Color.green,
-        unicode: Color.green,
         int: Color.yellow,
         float: Color.yellow,
         complex: Color.yellow,
@@ -273,8 +250,6 @@ class Completer(rlcompleter.Completer, ConfigurableClass):
                         val = getattr(thisobject, word)
                     except Exception:
                         val = None
-                    if not PY3K and isinstance(word, unicode):
-                        word = word.encode("utf-8")
                     names.append(word)
                     values.append(val)
             if names or not noprefix:
@@ -299,7 +274,7 @@ class Completer(rlcompleter.Completer, ConfigurableClass):
     def color_matches(self, names, values):
         matches = [self.color_for_obj(i, name, obj)
                    for i, name, obj
-                   in izip(count(), names, values)]
+                   in zip(count(), names, values)]
         return matches + [" "]
 
     def color_for_obj(self, i, name, value):
@@ -349,7 +324,7 @@ def setup():
 def setup_history(completer, persist_history):
     import atexit
     readline = completer.config.readline
-    if isinstance(persist_history, (str, unicode)):
+    if isinstance(persist_history, str):
         filename = persist_history
     else:
         filename = "~/.history.py"
