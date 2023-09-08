@@ -217,6 +217,8 @@ class Completer(rlcompleter.Completer, ConfigurableClass):
         return names
 
     def attr_matches(self, text):
+        import warnings
+        warnings.simplefilter("ignore", category=DeprecationWarning)
         expr, attr = text.rsplit(".", 1)
         if "(" in expr or ")" in expr:
             return []
