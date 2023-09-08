@@ -143,7 +143,6 @@ class ConfigurableClass:
             my_execfile(rcfile, mydict)
         except Exception as exc:
             import traceback
-
             sys.stderr.write(
                 "** error when importing %s: %r **\n" % (filename, exc)
             )
