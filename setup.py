@@ -89,7 +89,7 @@ setup(
     author="Michael Mintz",
     author_email="mdmintz@gmail.com",
     maintainer="Michael Mintz",
-    license="MIT",
+    license="BSD",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
