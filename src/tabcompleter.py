@@ -100,6 +100,7 @@ class DefaultConfig:
             import readline
             import pyreadline  # noqa: F401
             from pyreadline.modes import basemode
+            readline.backend = None
         except ImportError:
             return None
         if hasattr(basemode, "stripcolor"):
@@ -113,6 +114,7 @@ class DefaultConfig:
             if result:
                 return result
         import readline
+        readline.backend = None
         return readline, False
 
     def setup(self):
