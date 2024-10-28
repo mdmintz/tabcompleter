@@ -1,6 +1,6 @@
 """*** tabcompleter ***
 Use the TAB key for autocompletion in the Python console.
-(Python 3.7+)"""
+(Python 3.8+)"""
 from setuptools import setup, find_packages  # noqa
 import os
 import sys
@@ -102,7 +102,6 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -119,7 +118,7 @@ setup(
         "Topic :: Software Development :: Testing",
         "Topic :: Utilities",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=[
         'pyreadline3;platform_system=="Windows"',
     ],
