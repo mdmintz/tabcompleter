@@ -9,7 +9,7 @@ import os.path
 from itertools import count
 
 
-class LazyVersion(object):
+class LazyVersion:
     def __init__(self, pkg):
         self.pkg = pkg
         self.__version = None
@@ -67,7 +67,7 @@ class Color:
             color = getattr(cls, color)
         except AttributeError:
             pass
-        return "\x1b[%sm%s\x1b[00m" % (color, string)
+        return "\x1b[{}m{}\x1b[00m".format(color, string)
 
 
 class DefaultConfig:
@@ -146,7 +146,7 @@ class ConfigurableClass:
         except Exception as exc:
             import traceback
             sys.stderr.write(
-                "** error when importing %s: %r **\n" % (filename, exc)
+                "** error when importing {}: {!r} **\n".format(filename, exc)
             )
             traceback.print_tb(sys.exc_info()[2])
             return self.DefaultConfig()
@@ -157,7 +157,7 @@ class ConfigurableClass:
         try:
             return Config()
         except Exception as exc:
-            err = "error when setting up Config from %s: %s" % (filename, exc)
+            err = "error when setting up Config from {}: {}".format(filename, exc)
             tb = sys.exc_info()[2]
             if tb and tb.tb_next:
                 tb = tb.tb_next
@@ -264,10 +264,10 @@ class Completer(rlcompleter.Completer, ConfigurableClass):
         if not names:
             return []
         if len(names) == 1:
-            return ["%s.%s" % (expr, names[0])]  # Only option, no coloring.
+            return ["{}.{}".format(expr, names[0])]  # Only option, no coloring.
         prefix = commonprefix(names)
         if prefix and prefix != attr:
-            return ["%s.%s" % (expr, prefix)]  # Autocomplete prefix.
+            return ["{}.{}".format(expr, prefix)]  # Autocomplete prefix.
         if self.config.use_colors:
             return self.color_matches(names, values)
         if prefix:
@@ -346,7 +346,7 @@ def interact(persist_history=None):
         setup_history(completer, persist_history)
 
 
-class Installer(object):
+class Installer:
     def __init__(self, basepath, force):
         fname = os.path.join(basepath, "python_startup.py")
         self.filename = os.path.expanduser(fname)

@@ -18,7 +18,7 @@ try:
         if not line.startswith("<meta ") and not line.startswith("<link "):
             long_description_lines.append(line)
     long_description = "\n".join(long_description_lines)
-except IOError:
+except OSError:
     long_description = "tabcompleter --- Autocompletion in the Python console."
 
 if sys.argv[-1] == "publish":
