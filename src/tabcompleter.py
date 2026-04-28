@@ -318,6 +318,9 @@ def setup():
         readline.parse_and_bind("bind ^I rl_complete")
     else:
         readline.parse_and_bind("tab: complete")
+    # Show the match list on the first TAB when no unique extension exists,
+    # instead of ringing a bell and waiting for a second TAB.
+    readline.parse_and_bind("set show-all-if-ambiguous on")
     readline.set_completer(completer.complete)
     return completer
 
