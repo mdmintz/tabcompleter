@@ -270,9 +270,14 @@ class Completer(rlcompleter.Completer, ConfigurableClass):
             return ["%s.%s" % (expr, prefix)]  # Autocomplete prefix.
         if self.config.use_colors:
             return self.color_matches(names, values)
-        if prefix:
-            names += [" "]
-        return names
+        if (
+            not os.getenv("TABCOMPLETER_INCLUDE_PREFIX", "").lower()
+            in ("1", "true", "yes", "on")
+        ):
+            if prefix:
+                names += [" "]
+            return names
+        return ["%s.%s" % (expr, n) for n in names] + ([" "] if prefix else [])
 
     def color_matches(self, names, values):
         matches = [self.color_for_obj(i, name, obj)
